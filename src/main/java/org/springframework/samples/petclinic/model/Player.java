@@ -1,11 +1,11 @@
 package org.springframework.samples.petclinic.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Player {
-	////
 	private String nickname;
-	private LocalDate registrationDate;
+	private LocalDateTime registrationDate;
 
 	public String getPlayerResult() {
 		return null;
@@ -15,7 +15,7 @@ public class Player {
 		return nickname;
 	}
 
-	public LocalDate getRegistrationDate() {
+	public LocalDateTime getRegistrationDate() {
 		return registrationDate;
 	}
 
@@ -23,7 +23,7 @@ public class Player {
 		this.nickname = nickname;
 	}
 
-	public void setRegistrationDate(LocalDate registrationDate) {
+	public void setRegistrationDate(LocalDateTime registrationDate) {
 		this.registrationDate = registrationDate;
 	}
 }
