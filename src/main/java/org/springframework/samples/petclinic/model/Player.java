@@ -3,6 +3,7 @@ package org.springframework.samples.petclinic.model;
 import java.time.LocalDate;
 
 public class Player {
+	//
 	private String nickname;
 	private LocalDate registrationDate;
 
