@@ -54,7 +54,7 @@ CREATE TABLE pets (
 CREATE TABLE player(
     id                  INTEGER IDENTITY PRIMARY KEY,
     nickname            VARCHAR(30),
-    registrationDate    DATA
+    registrationDate    DATE
 
 );
 
