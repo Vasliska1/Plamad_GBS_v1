@@ -52,8 +52,10 @@ INSERT INTO visits VALUES (2, 8, '2013-01-02', 'rabies shot');
 INSERT INTO visits VALUES (3, 8, '2013-01-03', 'neutered');
 INSERT INTO visits VALUES (4, 7, '2013-01-04', 'spayed');
 
-
+/*
 INSERT INTO player VALUES(1, 'Yan', '2016-01-01');
 INSERT INTO player VALUES(2, 'Vas', '2016-01-01');
+*/
+INSERT INTO player VALUES(1, 'dsf', '2018-01-01');
 
 
