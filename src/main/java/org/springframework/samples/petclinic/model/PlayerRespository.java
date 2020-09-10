@@ -14,4 +14,5 @@ public interface PlayerRespository extends Repository<Player, Integer> {
 	@Transactional(readOnly = true)
 	Player findById(Integer id);
 
+	void save(Player player);
 }
