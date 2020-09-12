@@ -42,6 +42,7 @@ public interface PetRepository extends Repository<Pet, Integer> {
 	@Transactional(readOnly = true)
 	List<PetType> findPetTypes();
 
+
 	/**
 	 * Retrieve a {@link Pet} from the data store by id.
 	 * @param id the id to search for
