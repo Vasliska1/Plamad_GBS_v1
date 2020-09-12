@@ -1,13 +1,10 @@
 package org.springframework.samples.petclinic.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
@@ -19,11 +16,9 @@ public class Player extends BaseEntity {
 	@NotEmpty
 	private String nickname;
 
-
 	@Column(name = "registration_date")
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private LocalDateTime registrationDate;
-
 
 	public String getPlayerResult() {
 		return null;
