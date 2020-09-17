@@ -12,10 +12,10 @@ public class PlayerController {
 		this.player = player;
 	}
 
-	@RequestMapping(value="/player/{id}", method= RequestMethod.GET)
+	@RequestMapping(value = "/player/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public String findById(@PathVariable("id") int id) {
-		return player.findById(id).getNickname() + " " +  player.findById(id).getRegistrationDate() ;
+		return player.findById(id).getNickname() + " " + player.findById(id).getRegistrationDate();
 	}
 
 }
