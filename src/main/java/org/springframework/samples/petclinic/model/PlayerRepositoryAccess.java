@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
 @Component
 public class PlayerRepositoryAccess {
 
-	private PlayerRespository playerRespository;
-	public PlayerRepositoryAccess(PlayerRespository playerRespository) {
+	private PlayerRepository playerRespository;
+	public PlayerRepositoryAccess(PlayerRepository playerRespository) {
 		this.playerRespository =playerRespository;
 		Player player1 = new Player();
 		player1.setRegistrationDate(LocalDateTime.now());

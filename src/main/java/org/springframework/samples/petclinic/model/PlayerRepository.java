@@ -3,7 +3,7 @@ package org.springframework.samples.petclinic.model;
 import org.springframework.data.repository.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-public interface PlayerRespository extends Repository<Player, Integer> {
+public interface PlayerRepository extends Repository<Player, Integer> {
 
 	@Transactional(readOnly = true)
 	Player findById(Integer id);
