@@ -3,7 +3,7 @@
 
 <body>
 
-<h2>Owner</h2>
+<h2>Player</h2>
 <form th:object="${player}" class="form-horizontal" id="add-player-form" method="post">
   <div class="form-group has-feedback">
     <input
@@ -15,7 +15,7 @@
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <button
-        th:with="text=${player['new']} ? 'Add Owner' : 'Update Owner'"
+        th:with="text=${player['new']} ? 'Add Player' : 'Update Player'"
         class="btn btn-default" type="submit" th:text="${text}">Add
         Player</button>
     </div>

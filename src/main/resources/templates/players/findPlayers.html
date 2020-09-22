@@ -6,7 +6,7 @@
 <body>
 
 
-<h2>Owner Information</h2>
+<h2>Player Information</h2>
 
 
 <table class="table table-striped" th:object="${player}">
@@ -21,8 +21,7 @@
 
 </table>
 
-<a th:href="@{{id}/edit(id=${player.id})}" class="btn btn-default">Add
-  New Player</a>
+<a th:href="@{{id}/edit(id=${player.id})}" class="btn btn-default">Update Player</a>
 
 
 
