@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'players')}">
+
+<body>
+
+
+<h2>Owner Information</h2>
+
+
+<table class="table table-striped" th:object="${player}">
+  <tr>
+    <th>Nickname</th>
+    <td><b th:text="*{nickname}"></b></td>
+  </tr>
+  <tr>
+    <th>Registration date</th>
+    <td th:text="*{registrationDate}"></td>
+  </tr>
+
+</table>
+
+<a th:href="@{{id}/edit(id=${player.id})}" class="btn btn-default">Add
+  New Player</a>
+
+
+
+</body>
+
+</html>
