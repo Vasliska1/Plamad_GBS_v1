@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 @Controller
 public class PlayerController {
@@ -48,6 +49,27 @@ public class PlayerController {
 			this.player.save(player);
 			System.out.println(player.getNickname());
 			return "redirect:/player/{id}";
+		}
+	}
+
+
+
+
+	@GetMapping("/player/new")
+	public String initCreationForm(Map<String, Object> model) {
+		Player player = new Player();
+		model.put("player", player);
+		return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+	}
+
+	@PostMapping("/player/new")
+	public String processCreationForm(@Valid Player player, BindingResult result) {
+		if (result.hasErrors()) {
+			return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+		}
+		else {
+			this.player.save(player);
+			return "redirect:/player/" + player.getId();
 		}
 	}
 
