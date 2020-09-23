@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Map;
 
@@ -28,6 +29,7 @@ public class PlayerController {
 	public ModelAndView findById(@PathVariable("id") int id) {
 		ModelAndView mav = new ModelAndView("players/playersInfo");
 		Player player = this.player.findById(id);
+		System.out.println(player.getRegistrationDate());
 		mav.addObject(player);
 		return mav;
 	}
@@ -47,6 +49,7 @@ public class PlayerController {
 		}
 		else {
 			player.setId(id);
+			player.setRegistrationDate(LocalDateTime.now());
 			this.player.save(player);
 			System.out.println(player.getNickname());
 			return "redirect:/player/{id}";
@@ -68,6 +71,7 @@ public class PlayerController {
 			return VIEWS_PLAYER_CREATE_OR_UPDATE_FORM;
 		}
 		else {
+			player.setRegistrationDate(LocalDateTime.now());
 			this.player.save(player);
 			return "redirect:/player/" + player.getId();
 		}
