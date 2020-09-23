@@ -77,4 +77,14 @@ public class PlayerController {
 		}
 	}
 
+
+	@RequestMapping(value = "api/player/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public String findByIdToJson(@PathVariable("id") int id) {
+		return "{ <br> \"id\":" +  "\"" + player.findById(id).getId() + "\"," +
+			" <br> \"nickname\":" + "\"" +  player.findById(id).getNickname() +  " \"," +
+			" <br> \"registrationDate\":" + "\"" + player.findById(id).getRegistrationDate() + "\"  <br> }";
+	}
+
+
 }
