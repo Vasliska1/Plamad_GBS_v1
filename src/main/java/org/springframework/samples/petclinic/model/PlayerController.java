@@ -1,5 +1,8 @@
 package org.springframework.samples.petclinic.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import org.springframework.samples.petclinic.owner.Owner;
 import org.springframework.samples.petclinic.owner.Pet;
 import org.springframework.stereotype.Controller;
@@ -43,11 +46,10 @@ public class PlayerController {
 
 	@PostMapping("/player/{id}/edit")
 	public String processUpdatePlayerForm(@Valid Player player, BindingResult result,
-										 @PathVariable("id") int id) {
+										  @PathVariable("id") int id) {
 		if (result.hasErrors()) {
 			return VIEWS_PLAYER_CREATE_OR_UPDATE_FORM;
-		}
-		else {
+		} else {
 			player.setId(id);
 			player.setRegistrationDate(LocalDateTime.now());
 			this.player.save(player);
@@ -55,7 +57,6 @@ public class PlayerController {
 			return "redirect:/player/{id}";
 		}
 	}
-
 
 
 	@GetMapping("/player/new")
@@ -69,8 +70,7 @@ public class PlayerController {
 	public String processCreationForm(@Valid Player player, BindingResult result) {
 		if (result.hasErrors()) {
 			return VIEWS_PLAYER_CREATE_OR_UPDATE_FORM;
-		}
-		else {
+		} else {
 			player.setRegistrationDate(LocalDateTime.now());
 			this.player.save(player);
 			return "redirect:/player/" + player.getId();
@@ -81,10 +81,16 @@ public class PlayerController {
 	@RequestMapping(value = "api/player/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public String findByIdToJson(@PathVariable("id") int id) {
-		return "{ <br> \"id\":" +  "\"" + player.findById(id).getId() + "\"," +
-			" <br> \"nickname\":" + "\"" +  player.findById(id).getNickname() +  " \"," +
-			" <br> \"registrationDate\":" + "\"" + player.findById(id).getRegistrationDate() + "\"  <br> }";
+		String json = null;
+		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+
+		try {
+			json = ow.writeValueAsString(player.findById(id));
+			} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		String json1 = json.replace("\n", "<br>");
+
+		return json1;
 	}
-
-
 }
