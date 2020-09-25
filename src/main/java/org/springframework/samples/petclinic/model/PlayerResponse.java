@@ -6,11 +6,11 @@ import java.io.Serializable;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class PlayerResponse implements Serializable {
-	private String id;
+	private int id;
 	private String nickname;
 	private String date;
 
-	public PlayerResponse(String id, String nickname, String date) {
+	public PlayerResponse(int id, String nickname, String date) {
 		this.id = id;
 		this.nickname = nickname;
 		this.date = date;

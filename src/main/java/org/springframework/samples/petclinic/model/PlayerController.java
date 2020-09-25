@@ -82,9 +82,9 @@ public class PlayerController {
 	@ResponseBody
 	public String findByIdToJson(@PathVariable("id") int id) {
 		String json = null;
-		PlayerResponse player = new PlayerResponse(this.player.findById(id).getId().toString(), this.player.findById(id).getNickname(), this.player.findById(id).getRegistrationDate().toString());
+		Player getPlayer = player.findById(id);
+		PlayerResponse player = new PlayerResponse(getPlayer.getId(), getPlayer.getNickname(), getPlayer.getRegistrationDate().toString());
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-
 		try {
 			json = ow.writeValueAsString(player);
 			} catch (JsonProcessingException e) {
