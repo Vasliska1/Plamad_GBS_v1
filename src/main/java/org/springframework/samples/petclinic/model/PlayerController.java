@@ -3,6 +3,8 @@ package org.springframework.samples.petclinic.model;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.samples.petclinic.owner.Owner;
 import org.springframework.samples.petclinic.owner.Pet;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Map;
@@ -80,18 +83,22 @@ public class PlayerController {
 
 	@RequestMapping(value = "api/player/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public String findByIdToJson(@PathVariable("id") int id) {
-		String json = null;
-		Player getPlayer = player.findById(id);
-		PlayerResponse player = new PlayerResponse(getPlayer.getId(), getPlayer.getNickname(), getPlayer.getRegistrationDate().toString());
+	public ResponseEntity<String> findByIdToJson(@PathVariable("id") int id) throws JsonProcessingException, FileNotFoundException {
+		String json;
+		String json1;
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		try {
+			Player getPlayer = player.findById(id);
+			PlayerResponse player = new PlayerResponse(getPlayer.getId(), getPlayer.getNickname(), getPlayer.getRegistrationDate().toString());
 			json = ow.writeValueAsString(player);
-			} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			/*.replace("\n", "<br>");*/
+			return new ResponseEntity<>(json, HttpStatus.OK);
+		} catch (NullPointerException e) {
+			json1 = ow.writeValueAsString(new ErrorResponse("404", "Not Found"));
+			return new ResponseEntity<>(json1, HttpStatus.NOT_FOUND);
 		}
-		String json1 = json.replace("\n", "<br>");
 
-		return json1;
 	}
+
+
 }
