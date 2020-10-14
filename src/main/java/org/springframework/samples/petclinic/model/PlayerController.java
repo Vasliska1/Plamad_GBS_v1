@@ -81,7 +81,7 @@ public class PlayerController {
 	}
 
 
-	@RequestMapping(value = "api/player/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "api/player/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> findByIdToJson(@PathVariable("id") int id) throws JsonProcessingException, FileNotFoundException {
 		String json;
