@@ -3,6 +3,8 @@ package org.springframework.samples.petclinic.model;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.samples.petclinic.owner.Owner;
 import org.springframework.samples.petclinic.owner.Pet;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Map;
@@ -77,21 +80,27 @@ public class PlayerController {
 		}
 	}
 
-
-	@RequestMapping(value = "api/player/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "api/player/{id}", method = RequestMethod.POST)
 	@ResponseBody
-	public String findByIdToJson(@PathVariable("id") int id) {
-		String json = null;
-		Player getPlayer = player.findById(id);
-		PlayerResponse player = new PlayerResponse(getPlayer.getId(), getPlayer.getNickname(), getPlayer.getRegistrationDate().toString());
+	public ResponseEntity<String> findByIdToJson(@PathVariable("id") int id) throws JsonProcessingException, FileNotFoundException {
+		String jsonOk;
+		String jsonError;
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		try {
-			json = ow.writeValueAsString(player);
-			} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			Player getPlayer = player.findById(id);
+			if (getPlayer == null) {
+				jsonError = ow.writeValueAsString(new ErrorResponse("404", "Not Found"));
+				return new ResponseEntity<>(jsonError, HttpStatus.NOT_FOUND);
+			} else {
+				PlayerResponse player = new PlayerResponse(getPlayer.getId(), getPlayer.getNickname(), getPlayer.getRegistrationDate().toString());
+				jsonOk = ow.writeValueAsString(player);
+				return new ResponseEntity<>(jsonOk, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			jsonError = ow.writeValueAsString(new ErrorResponse("500", "Internet Server Error"));
+			return new ResponseEntity<>(jsonError, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		String json1 = json.replace("\n", "<br>");
 
-		return json1;
 	}
+
 }
