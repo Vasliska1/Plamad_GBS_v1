@@ -83,18 +83,22 @@ public class PlayerController {
 	@RequestMapping(value = "api/player/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> findByIdToJson(@PathVariable("id") int id) throws JsonProcessingException, FileNotFoundException {
-		String json;
-		String json1;
+		String jsonOk;
+		String jsonError;
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		try {
 			Player getPlayer = player.findById(id);
-			PlayerResponse player = new PlayerResponse(getPlayer.getId(), getPlayer.getNickname(), getPlayer.getRegistrationDate().toString());
-			json = ow.writeValueAsString(player);
-			/*.replace("\n", "<br>");*/
-			return new ResponseEntity<>(json, HttpStatus.OK);
-		} catch (NullPointerException e) {
-			json1 = ow.writeValueAsString(new ErrorResponse("404", "Not Found"));
-			return new ResponseEntity<>(json1, HttpStatus.NOT_FOUND);
+			if (getPlayer == null) {
+				jsonError = ow.writeValueAsString(new ErrorResponse("404", "Not Found"));
+				return new ResponseEntity<>(jsonError, HttpStatus.NOT_FOUND);
+			} else {
+				PlayerResponse player = new PlayerResponse(getPlayer.getId(), getPlayer.getNickname(), getPlayer.getRegistrationDate().toString());
+				jsonOk = ow.writeValueAsString(player);
+				return new ResponseEntity<>(jsonOk, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			jsonError = ow.writeValueAsString(new ErrorResponse("500", "Internet Server Error"));
+			return new ResponseEntity<>(jsonError, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 	}

@@ -9,8 +9,7 @@ import java.io.Serializable;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class ErrorResponse  implements Serializable  {
-
-
+	
 	private String error;
 	private String status;
 
