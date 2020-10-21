@@ -3,6 +3,10 @@ package org.springframework.samples.petclinic.model;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import org.json.simple.JSONObject;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.samples.petclinic.owner.Owner;
 import org.springframework.samples.petclinic.owner.Pet;
 import org.springframework.stereotype.Controller;
@@ -12,9 +16,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 
 @Controller
 public class PlayerController {
@@ -77,21 +83,46 @@ public class PlayerController {
 		}
 	}
 
-
 	@RequestMapping(value = "api/player/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public String findByIdToJson(@PathVariable("id") int id) {
-		String json = null;
-		Player getPlayer = player.findById(id);
-		PlayerResponse player = new PlayerResponse(getPlayer.getId(), getPlayer.getNickname(), getPlayer.getRegistrationDate().toString());
+	public ResponseEntity<String> findByIdToJson(@PathVariable("id") int id) throws JsonProcessingException {
+		String jsonOk;
+		String jsonError;
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		try {
-			json = ow.writeValueAsString(player);
-			} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		String json1 = json.replace("\n", "<br>");
 
-		return json1;
+			Player getPlayer = player.findById(id);
+			if (getPlayer == null) {
+				jsonError = ow.writeValueAsString(new ErrorResponse("404", "Not Found"));
+				return new ResponseEntity<>(jsonError, HttpStatus.NOT_FOUND);
+			} else {
+				PlayerResponse player = new PlayerResponse(getPlayer.getId(), getPlayer.getNickname(), getPlayer.getRegistrationDate().toString());
+				jsonOk = ow.writeValueAsString(player);
+				return new ResponseEntity<>(jsonOk, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			jsonError = ow.writeValueAsString(new ErrorResponse("500", "Internet Server Error"));
+			return new ResponseEntity<>(jsonError, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 	}
+
+
+	@RequestMapping(value = "api/player/new", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<String> processCreationForm(HttpEntity<Map> httpEntity) throws JsonProcessingException {
+
+		JSONObject jsonObject = new JSONObject(Objects.requireNonNull(httpEntity.getBody()));
+		String name = jsonObject.get("name").toString();
+
+		Player player = new Player();
+		player.setNickname(name);
+		player.setRegistrationDate(LocalDateTime.now());
+		this.player.save(player);
+
+		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		String json = ow.writeValueAsString(new PlayerResponse(player.getId(), player.getNickname(), player.getRegistrationDate().toString()));
+		return new ResponseEntity<>(json, HttpStatus.CREATED);
+	}
+
 }
