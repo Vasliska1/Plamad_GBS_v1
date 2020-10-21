@@ -113,8 +113,7 @@ public class PlayerController {
 	public ResponseEntity<String> processCreationForm(HttpEntity<Map> httpEntity) throws JsonProcessingException {
 
 		JSONObject jsonObject = new JSONObject(Objects.requireNonNull(httpEntity.getBody()));
-		String name = jsonObject.get("name").toString();
-
+		String name = jsonObject.get("nickname").toString();
 		Player player = new Player();
 		player.setNickname(name);
 		player.setRegistrationDate(LocalDateTime.now());
