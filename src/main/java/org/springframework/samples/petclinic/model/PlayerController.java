@@ -3,6 +3,8 @@ package org.springframework.samples.petclinic.model;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import org.json.simple.JSONObject;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.samples.petclinic.owner.Owner;
@@ -18,6 +20,7 @@ import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 
 @Controller
 public class PlayerController {
@@ -101,6 +104,22 @@ public class PlayerController {
 			return new ResponseEntity<>(jsonError, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
+	}
+
+	@RequestMapping(value = "api/player/new", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<String> processCreationForm(HttpEntity<Map> httpEntity) throws JsonProcessingException {
+
+		JSONObject jsonObject = new JSONObject(Objects.requireNonNull(httpEntity.getBody()));
+		String name = jsonObject.get("nickname").toString();
+		Player player = new Player();
+		player.setNickname(name);
+		player.setRegistrationDate(LocalDateTime.now());
+		this.player.save(player);
+
+		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		String json = ow.writeValueAsString(new PlayerResponse(player.getId(), player.getNickname(), player.getRegistrationDate().toString()));
+		return new ResponseEntity<>(json, HttpStatus.CREATED);
 	}
 
 }
