@@ -6,6 +6,7 @@ DROP TABLE pets IF EXISTS;
 DROP TABLE types IF EXISTS;
 DROP TABLE owners IF EXISTS;
 DROP TABLE player IF EXISTS;
+DROP TABLE game_result IF EXISTS;
 
 CREATE TABLE vets (
   id         INTEGER IDENTITY PRIMARY KEY,
@@ -58,6 +59,20 @@ CREATE TABLE player(
 
 
 );
+
+CREATE TABLE game_result(
+    id          INTEGER IDENTITY PRIMARY KEY,
+    score       INTEGER NOT NULL,
+    date_reg        datetime,
+    player_id   INTEGER NOT NULL
+
+
+);
+
+
+
+ALTER TABLE game_result ADD CONSTRAINT fk_player FOREIGN KEY (player_id) REFERENCES player (id);
+
 
 
 ALTER TABLE pets ADD CONSTRAINT fk_pets_owners FOREIGN KEY (owner_id) REFERENCES owners (id);
