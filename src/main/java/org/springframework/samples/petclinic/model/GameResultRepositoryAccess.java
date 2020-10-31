@@ -13,7 +13,7 @@ public class GameResultRepositoryAccess {
 	public GameResultRepositoryAccess(GameResultRepository gameResultRepository) {
 		this.gameResultRepository = gameResultRepository;
 
-		List<GameResult> g = gameResultRepository.getAnyResultByScore(3);
+		List<GameResult> g = gameResultRepository.getTopResults(3);
 
 		System.out.println(g.get(0).getScore() + " " + g.get(1).getScore() + " " + g.get(2).getScore());
 
