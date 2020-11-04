@@ -63,7 +63,7 @@ CREATE TABLE player(
 CREATE TABLE game_result(
     id          INTEGER IDENTITY PRIMARY KEY,
     score       INTEGER NOT NULL,
-    date        datetime,
+    dateR        datetime,
     player_id   INTEGER NOT NULL
 
 

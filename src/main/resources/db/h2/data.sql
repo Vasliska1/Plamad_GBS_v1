@@ -61,4 +61,5 @@ INSERT INTO game_result VALUES(2, 121, '2016-01-01', 2);
 INSERT INTO game_result VALUES(3, 123, '2016-01-01', 2);
 INSERT INTO game_result VALUES(4, 10, '2016-01-01', 2);
 INSERT INTO game_result VALUES(5, 150, '2016-01-01', 2);
+INSERT INTO game_result VALUES(6, 171, '2016-01-01', 1);
 
