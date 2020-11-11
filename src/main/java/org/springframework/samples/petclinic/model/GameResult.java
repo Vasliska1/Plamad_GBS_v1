@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class GameResult  extends BaseEntity {
 
 
-	@Column(name = "dateR")
+	@Column(name = "registration_date")
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private LocalDateTime date;
 
