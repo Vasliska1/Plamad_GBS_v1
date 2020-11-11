@@ -19,7 +19,7 @@ public interface GameResultRepository extends Repository<GameResult, Integer> {
 
 	@Query(nativeQuery = true,
 		value =
-			" SELECT id, dateR, score, PLAYER_ID FROM (SELECT id, dateR, score, PLAYER_ID, RANK() OVER(PARTITION BY PLAYER_ID ORDER BY score DESC) num FROM GAME_RESULT)  WHERE num <= 1 ORDER BY score DESC LIMIT 0, :counter")
+			" SELECT id, registration_date, score, PLAYER_ID FROM (SELECT id, registration_date, score, PLAYER_ID, RANK() OVER(PARTITION BY PLAYER_ID ORDER BY score DESC) num FROM GAME_RESULT)  WHERE num <= 1 ORDER BY score DESC LIMIT 0, :counter")
 	@Transactional(readOnly = true)
 	List<GameResult> getBestScore(@Param("counter") Integer counter );
 
