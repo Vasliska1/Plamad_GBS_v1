@@ -20,20 +20,9 @@ public class GameResultController {
 	@GetMapping("/top10Players")
 	public String processFindForm(GameResult gameResult, BindingResult result, Map<String, Object> model) {
 
-		// find owners by last name
 		Collection<GameResult> results = this.gameResultRepository.getBestScore(10);
-		if (results.isEmpty()) {
-			// no owners found
-			result.rejectValue("gameResult", "notFound", "not found");
-			return "owners/findOwners";
-		}
+		model.put("selections", results);
+		return "gameResult/topResultList";
 
-		else {
-			// multiple owners found
-			model.put("selections", results);
-			return "gameResult/topResultList";
-		}
 	}
-
-
 }
