@@ -61,10 +61,10 @@ CREATE TABLE player(
 );
 
 CREATE TABLE game_result(
-    id          INTEGER IDENTITY PRIMARY KEY,
-    score       INTEGER NOT NULL,
-    date        datetime,
-    player_id   INTEGER NOT NULL
+    id                      INTEGER IDENTITY PRIMARY KEY,
+    score                   INTEGER NOT NULL,
+    registration_date       datetime,
+    player_id               INTEGER NOT NULL
 
 
 );
