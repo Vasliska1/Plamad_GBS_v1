@@ -23,4 +23,13 @@ public interface GameResultRepository extends Repository<GameResult, Integer> {
 	@Transactional(readOnly = true)
 	List<GameResult> getBestScore(@Param("counter") Integer counter );
 
+
+
+	@Query(nativeQuery = true,
+		value =
+			" SELECT id, registration_date, score, PLAYER_ID FROM (SELECT id, registration_date, score, PLAYER_ID, RANK() OVER(PARTITION BY PLAYER_ID ORDER BY score DESC ) num FROM GAME_RESULT where registration_date > curdate() - interval 7 day)  WHERE (num <= 1)  ORDER BY score DESC  LIMIT 0, :counter")
+	@Transactional(readOnly = true)
+	List<GameResult> getBestScoreLastWeek(@Param("counter") Integer counter );
+
+
 }

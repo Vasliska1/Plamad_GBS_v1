@@ -62,4 +62,6 @@ INSERT INTO game_result VALUES(3, 123, '2016-01-01', 2);
 INSERT INTO game_result VALUES(4, 10, '2016-01-01', 2);
 INSERT INTO game_result VALUES(5, 150, '2016-01-01', 2);
 INSERT INTO game_result VALUES(6, 171, '2016-01-01', 1);
+INSERT INTO game_result VALUES(7, 100, '2020-11-11', 1);
+INSERT INTO game_result VALUES(8, 21, '2020-11-11', 2);
 
