@@ -13,7 +13,7 @@ public class GameResultRepositoryAccess {
 	public GameResultRepositoryAccess(GameResultRepository gameResultRepository) {
 		this.gameResultRepository = gameResultRepository;
 
-		List<GameResult> g = gameResultRepository.getBestScore(2);
+		List<GameResult> g = gameResultRepository.getBestScoreLastWeek(3);
 
 		System.out.println(g.get(0).getScore() + " " + g.get(1).getScore() );
 
