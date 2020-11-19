@@ -16,7 +16,6 @@ public class GameResult  extends BaseEntity {
 	private LocalDateTime date;
 
 	@Column(name = "score")
-	@NotEmpty
 	private int score;
 
 	@ManyToOne
