@@ -90,9 +90,9 @@ public class GameResultController {
 
 	}
 
-	@RequestMapping(value = "api/result/addNewGameResult", method = RequestMethod.POST)
+	@RequestMapping(value = "api/result/add", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<String> processCreationForm(HttpEntity<Map> httpEntity) throws JsonProcessingException {
+	public ResponseEntity<String> addNewGameResult(HttpEntity<Map> httpEntity) throws JsonProcessingException {
 
 		JSONObject jsonObject = new JSONObject(Objects.requireNonNull(httpEntity.getBody()));
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
