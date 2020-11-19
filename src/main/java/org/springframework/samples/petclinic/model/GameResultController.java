@@ -90,25 +90,35 @@ public class GameResultController {
 
 	}
 
-	@RequestMapping(value = "api/gameResult/add", method = RequestMethod.POST)
+	@RequestMapping(value = "api/result/addNewGameResult", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> processCreationForm(HttpEntity<Map> httpEntity) throws JsonProcessingException {
 
 		JSONObject jsonObject = new JSONObject(Objects.requireNonNull(httpEntity.getBody()));
-		int score = Integer.parseInt(jsonObject.get("score").toString());
-		int playerId = Integer.parseInt(jsonObject.get("playerId").toString());
-
-		Player player = playerRepository.findById(playerId);
-		System.out.println(player.getNickname());
-		GameResult gameResult = new GameResult();
-		gameResult.setScore(score);
-		gameResult.setPlayer(player);
-		gameResult.setDate(LocalDateTime.now());
-		this.gameResultRepository.save(gameResult);
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-
-		String json = ow.writeValueAsString(new GameResultResponse(gameResult.getPlayer().getNickname(), gameResult.getScore(), gameResult.getDate().toString()));
-		return new ResponseEntity<>(json, HttpStatus.CREATED);
+		String jsonError;
+		int score;
+		int playerId;
+		try {
+			score = Integer.parseInt(jsonObject.get("score").toString());
+			playerId = Integer.parseInt(jsonObject.get("playerId").toString());
+		} catch (NumberFormatException e) {
+			jsonError = ow.writeValueAsString(new ErrorResponse("500", "Internet Server Error"));
+			return new ResponseEntity<>(jsonError, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		Player player = playerRepository.findById(playerId);
+		if (player == null) {
+			jsonError = ow.writeValueAsString(new ErrorResponse("404", "Not Found"));
+			return new ResponseEntity<>(jsonError, HttpStatus.NOT_FOUND);
+		} else {
+			GameResult gameResult = new GameResult();
+			gameResult.setScore(score);
+			gameResult.setPlayer(player);
+			gameResult.setDate(LocalDateTime.now());
+			this.gameResultRepository.save(gameResult);
+			String json = ow.writeValueAsString(new GameResultResponse(gameResult.getPlayer().getNickname(), gameResult.getScore(), gameResult.getDate().toString()));
+			return new ResponseEntity<>(json, HttpStatus.CREATED);
+		}
 	}
 
 
