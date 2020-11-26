@@ -5,6 +5,24 @@ Deploy this sample application to Pivotal Web Services:
     <img src="https://push-to.cfapps.io/ui/assets/images/Push-to-Pivotal-Light-with-Shadow.svg" width="180" alt="Push" align="center">
 </a>
 
+##About Players
+
+Players have 2 methods - save and foundById. 
+
+We have views for add and upgrade Players - to see them enter "http://localhost:8080/player/{id}/edit"(upgrade) or "http://localhost:8080/player/add"(for add Players).
+
+Also we have Api - for found player by Id ("http://localhost:8080/api/player/{id}") and add Player("api/player/new").
+
+
+##About GameResult
+
+GameResult have 3 methods - save, getBestScore - displays the list with best players, getBestScoreLastWeek -   displays the list with best players on last week(one player-one result).
+
+We have views for list of the top 10 best players ("http://localhost:8080/top10Players"). 
+
+Also we have Api - add gameResult ("http://localhost:8080/api/result/add"), show best players ("http://localhost:8080/api/topPlayers/{count}") and show best players for last week ("http://localhost:8080/api/topPlayersLastWeek/{count}")
+
+
 ## Understanding the Spring Petclinic application with a few diagrams
 <a href="https://speakerdeck.com/michaelisvy/spring-petclinic-sample-application">See the presentation here</a>
 
@@ -38,6 +56,8 @@ Our issue tracker is available here: https://github.com/spring-projects/spring-p
 In its default configuration, Petclinic uses an in-memory database (H2) which
 gets populated at startup with data. The h2 console is automatically exposed at `http://localhost:8080/h2-console`
 and it is possible to inspect the content of the database using the `jdbc:h2:mem:testdb` url.
+
+*Additional from Vasilisa: u can found url in console output "H2 console available at .... '*url*'"
  
 A similar setup is provided for MySql in case a persistent database configuration is needed. Note that whenever the database type is changed, the app needs to be run with a different profile: `spring.profiles.active=mysql` for MySql.
 
