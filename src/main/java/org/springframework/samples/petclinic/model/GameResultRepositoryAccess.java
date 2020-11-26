@@ -15,9 +15,6 @@ public class GameResultRepositoryAccess {
 
 		List<GameResult> g = gameResultRepository.getBestScoreLastWeek(3);
 
-		System.out.println(g.get(0).getScore() + " " + g.get(1).getScore() );
-
 	}
-
 
 }

@@ -7,8 +7,6 @@ import org.json.simple.JSONObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.samples.petclinic.owner.Owner;
-import org.springframework.samples.petclinic.owner.Pet;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 

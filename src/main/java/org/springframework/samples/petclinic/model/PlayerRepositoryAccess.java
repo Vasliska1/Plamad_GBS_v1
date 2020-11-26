@@ -15,6 +15,5 @@ public class PlayerRepositoryAccess {
 		player1.setRegistrationDate(LocalDateTime.now());
 		player1.setNickname("123");
 		playerRespository.save(player1);
-		System.out.println(playerRespository.findById(3).getNickname());
 	}
 }
