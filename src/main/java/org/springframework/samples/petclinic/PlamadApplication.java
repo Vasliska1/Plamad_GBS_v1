@@ -26,10 +26,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication(proxyBeanMethods = false)
-public class PetClinicApplication {
+public class PlamadApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PetClinicApplication.class, args);
+		SpringApplication.run(PlamadApplication.class, args);
 	}
 
 }
