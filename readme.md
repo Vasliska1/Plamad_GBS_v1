@@ -1,5 +1,5 @@
 # Spring Plamad_GBS_v1 [![Build Status]
-##About Players
+## About Players
 
 Players have 2 methods - save and foundById. 
 
@@ -8,7 +8,7 @@ We have views for add and upgrade Players - to see them enter "http://localhost:
 Also we have Api - for found player by Id ("http://localhost:8080/api/player/{id}") and add Player("api/player/new").
 
 
-##About GameResult
+## About GameResult
 
 GameResult have 3 methods - save, getBestScore - displays the list with best players, getBestScoreLastWeek -   displays the list with best players on last week(one player-one result).
 
@@ -20,7 +20,7 @@ Also we have Api - add gameResult ("http://localhost:8080/api/result/add"), show
 ## Understanding the Spring Petclinic application with a few diagrams
 <a href="https://speakerdeck.com/michaelisvy/spring-petclinic-sample-application">See the presentation here</a>
 
-## Running petclinic locally
+## Running plamad locally
 Petclinic is a [Spring Boot](https://spring.io/guides/gs/spring-boot) application built using [Maven](https://spring.io/guides/gs/maven/). You can build a jar file and run it from the command line:
 
 
